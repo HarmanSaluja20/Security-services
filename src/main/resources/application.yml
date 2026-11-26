@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: security-services
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/security_services}
+    username: ${SPRING_DATASOURCE_USERNAME:security}
+    password: ${SPRING_DATASOURCE_PASSWORD:security}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
+            scope: openid,profile,email
+app:
+  jwt:
+    secret: ${JWT_SECRET:local-development-secret-change-this-32-bytes}
+    access-ttl-minutes: 15
+    refresh-ttl-days: 7
