@@ -15,7 +15,8 @@ public class AuthController {
     public AuthController(AuthService auth) { this.auth = auth; }
 
     public record RegisterRequest(@Email @NotBlank String email,
-        @Size(min=12, max=72) String password, @NotBlank @Size(max=120) String displayName) {}
+        @NotBlank @Size(min=12, max=72) String password,
+        @NotBlank @Size(max=120) String displayName) {}
     public record LoginRequest(@Email @NotBlank String email, @NotBlank String password) {}
     public record RefreshRequest(@NotBlank String refreshToken) {}
 
