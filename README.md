@@ -12,9 +12,9 @@ Spring Boot 3 / Java 21 starter for authentication, JWT access tokens, rotating 
 1. Copy `.env.example` to `.env` and set secrets.
 2. Start PostgreSQL: `docker compose up -d postgres`
 3. Export the variables in `.env` (or configure them in your IDE).
-4. Run: `./gradlew bootRun`
+4. Install Gradle 8.10+ and run: `gradle bootRun`
 
-The API is served at `http://localhost:8080`. Flyway creates the schema and seeds USER, MANAGER and ADMIN roles. The first admin must be provisioned manually in the database; never expose an open admin-registration endpoint.
+The API is served at `http://localhost:8080`. Flyway creates the schema and seeds USER, MANAGER and ADMIN roles. Register your own account, then run `scripts/promote-admin.sql` as a trusted database administrator after replacing the example email. Never expose an open admin-registration endpoint.
 
 ## Main endpoints
 - `POST /api/auth/register`
@@ -27,7 +27,7 @@ The API is served at `http://localhost:8080`. Flyway creates the schema and seed
 - `GET /api/admin/role-requests`
 - `PATCH /api/admin/role-requests/{id}`
 
-OAuth2 login is configured for Google when `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` are supplied. The OAuth2 success handler issues the same application JWT/refresh-token pair.
+OAuth2 login uses Google at `/oauth2/authorization/google`. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to real Google OAuth credentials; the local placeholder values are not usable credentials. The OAuth2 success handler issues the same application JWT/refresh-token pair.
 
 ## Security notes
 - Access tokens are short-lived (15 minutes).
